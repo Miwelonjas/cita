@@ -25,12 +25,19 @@
             max-width: 400px;
             width: 90%;
             position: relative;
+            box-sizing: border-box;
         }
 
         h1 {
             color: #ff4a75;
             font-size: 24px;
             margin-bottom: 25px;
+        }
+
+        p {
+            color: #555;
+            font-size: 16px;
+            line-height: 1.5;
         }
 
         .btn-container {
@@ -49,7 +56,8 @@
             border: none;
             border-radius: 10px;
             cursor: pointer;
-            transition: transform 0.1s ease;
+            /* Eliminamos transiciones largas para que el botón escape al instante en celular */
+            transition: transform 0.05s ease; 
         }
 
         #btn-si {
@@ -61,9 +69,10 @@
             background-color: #f44336;
             color: white;
             position: absolute;
+            /* Evita que el zoom del celular rompa el click */
+            touch-action: none; 
         }
 
-        /* Estilos para la pantalla de actividades */
         .hidden {
             display: none !important;
         }
@@ -78,57 +87,78 @@
             text-decoration: none;
             border-radius: 10px;
             padding: 12px 0;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
         }
 
         .actividad-btn:hover {
             background-color: #e03e66;
         }
+
+        /* Estilos para la foto final */
+        .foto-final {
+            width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-top: 15px;
+        }
     </style>
 </head>
 <body>
 
-    <!-- PANTALLA 1: LA PREGUNTA -->
     <div id="pantalla-pregunta" class="card">
-        <h1>¿Te gustaría salir conmigo este fin de semana? 😊</h1>
+        <h1>Sisi ¿Te gustaría salir conmigo este fin de semana? 😊</h1>
         <div class="btn-container">
             <button id="btn-si" onclick="aceptarInvitacion()">¡Sí!</button>
-            <button id="btn-no" onmouseover="moverBotonNo()" onclick="moverBotonNo()">No</button>
+            <button id="btn-no" onmouseover="moverBotonNo()" ontouchstart="moverBotonNo()" onclick="moverBotonNo(event)">No</button>
         </div>
     </div>
 
-    <!-- PANTALLA 2: LAS ACTIVIDADES -->
     <div id="pantalla-actividades" class="card hidden">
         <h1>¡Sabiíía que dirías que sí! 🥳<br><br>¿Qué plan se te antoja más?</h1>
-        <button class="actividad-btn" onclick="elegirPlan('Ir por unos tacos y cantar en el carro')">🌮 Tacos + Carpool Karaoke</button>
-        <button class="actividad-btn" onclick="elegirPlan('Ir a cenar bonito')">✨ Cena coqueta</button>
-        <button class="actividad-btn" onclick="elegirPlan('Un café y caminar por ahí')">☕ Café + Caminata tranqui</button>
-        <button class="actividad-btn" onclick="elegirPlan('Un plan sorpresa')">🤫 Plan Sorpresa</button>
+        <button class="actividad-btn" onclick="elegirPlan('Ir por unos tacos y cantar en el carro')">🌮 Desayuno + Plática en el coche</button>
+        <button class="actividad-btn" onclick="elegirPlan('Ir a cenar bonito')">✨ Desayuno + pasear a Ragnar</button>
+        <button class="actividad-btn" onclick="elegirPlan('Un café y caminar por ahí')">☕ Café + Caminata tranqui con Ragnar</button>
+        <button class="actividad-btn" onclick="elegirPlan('Un plan sorpresa')">🐶 Ir a camniar a la plaza con Ragnar</button>
+    </div>
+
+    <div id="pantalla-final" class="card hidden">
+        <h1>¡Trato hecho! 🎉</h1>
+        <p>Me alegra muchísimo que hayas dicho que sí. Prepárate para el plan de: <br><strong id="plan-elegido" style="color: #ff4a75;"></strong></p>
+        <p>Escríbeme por mensaje para ponernos de acuerdo con la hora y el lugar exacto. 😉 Mandame captura de esto.</p>
+        
+        <img class="foto-final" src="" alt="Celebración">
     </div>
 
     <script>
-        // Función para que el botón "No" escape
-        function moverBotonNo() {
+        // Función mejorada para que el botón escape en PC y Celular
+        function moverBotonNo(event) {
+            if(event) event.preventDefault(); // Evita que el click se ejecute en celular
+            
             const btnNo = document.getElementById('btn-no');
             
-            // Calculamos posiciones aleatorias dentro de la pantalla
-            const x = Math.random() * (window.innerWidth - btnNo.offsetWidth - 20);
-            const y = Math.random() * (window.innerHeight - btnNo.offsetHeight - 20);
+            // Rango seguro para que no se salga de los bordes visibles del teléfono
+            const x = Math.random() * (window.innerWidth - btnNo.offsetWidth - 30);
+            const y = Math.random() * (window.innerHeight - btnNo.offsetHeight - 30);
             
-            // Sacamos el botón de su contenedor para que se mueva por TODA la pantalla
             btnNo.style.position = 'fixed';
             btnNo.style.left = x + 'px';
             btnNo.style.top = y + 'px';
         }
 
-        // Función para cambiar de pantalla al dar clic en SÍ
         function aceptarInvitacion() {
             document.getElementById('pantalla-pregunta').classList.add('hidden');
             document.getElementById('pantalla-actividades').classList.remove('hidden');
         }
 
-        // Función para cuando elija la actividad (puedes cambiar lo que hace)
+        // Cambiamos el molesto Alert por la Pantalla 3
         function elegirPlan(plan) {
-            alert('¡Trato hecho! Elegiste: ' + plan + '. Al rato te paso los detalles en un mensaje 😉');
+            document.getElementById('pantalla-actividades').classList.add('hidden');
+            document.getElementById('plan-elegido').innerText = plan;
+            document.getElementById('pantalla-final').removeProperty ? document.getElementById('pantalla-final').classList.remove('hidden') : document.getElementById('pantalla-final').classList.remove('hidden');
         }
     </script>
 </body>
