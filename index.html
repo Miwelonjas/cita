@@ -133,33 +133,38 @@
         <img class="foto-final" src="nuestrafoto.jpg" alt="Celebración">
     </div>
 
-    <script>
-        // Función mejorada para que el botón escape en PC y Celular
-        function moverBotonNo(event) {
-            if(event) event.preventDefault(); // Evita que el click se ejecute en celular
-            
-            const btnNo = document.getElementById('btn-no');
-            
-            // Rango seguro para que no se salga de los bordes visibles del teléfono
-            const x = Math.random() * (window.innerWidth - btnNo.offsetWidth - 30);
-            const y = Math.random() * (window.innerHeight - btnNo.offsetHeight - 30);
-            
-            btnNo.style.position = 'fixed';
-            btnNo.style.left = x + 'px';
-            btnNo.style.top = y + 'px';
+<script>
+    // Función MEJORADA para separar PC y Celular
+    function moverBotonNo(event) {
+        const btnNo = document.getElementById('btn-no');
+
+        // REGLA CRÍTICA PARA CELULAR:
+        // Si el evento es táctil (touchstart), movemos el botón y PREVENIMOS el click.
+        if (event && event.type === 'touchstart') {
+            event.preventDefault(); // <-- Esto evita que el click se ejecute
         }
 
-        function aceptarInvitacion() {
-            document.getElementById('pantalla-pregunta').classList.add('hidden');
-            document.getElementById('pantalla-actividades').classList.remove('hidden');
-        }
+        // --- Lógica de movimiento (se mantiene de la versión anterior) ---
+        // Calculamos posiciones aleatorias dentro de la pantalla
+        const x = Math.random() * (window.innerWidth - btnNo.offsetWidth - 30);
+        const y = Math.random() * (window.innerHeight - btnNo.offsetHeight - 30);
 
-        // Cambiamos el molesto Alert por la Pantalla 3
-        function elegirPlan(plan) {
-            document.getElementById('pantalla-actividades').classList.add('hidden');
-            document.getElementById('plan-elegido').innerText = plan;
-            document.getElementById('pantalla-final').removeProperty ? document.getElementById('pantalla-final').classList.remove('hidden') : document.getElementById('pantalla-final').classList.remove('hidden');
-        }
-    </script>
+        // Movemos el botón a la nueva posición fixed
+        btnNo.style.position = 'fixed';
+        btnNo.style.left = x + 'px';
+        btnNo.style.top = y + 'px';
+    }
+
+    function aceptarInvitacion() {
+        document.getElementById('pantalla-pregunta').classList.add('hidden');
+        document.getElementById('pantalla-actividades').classList.remove('hidden');
+    }
+
+    function elegirPlan(plan) {
+        document.getElementById('pantalla-actividades').classList.add('hidden');
+        document.getElementById('plan-elegido').innerText = plan;
+        document.getElementById('pantalla-final').classList.remove('hidden');
+    }
+</script>
 </body>
 </html>
