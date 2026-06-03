@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tengo una pregunta...</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #ffeef2;
+            overflow: hidden;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            position: relative;
+        }
+
+        h1 {
+            color: #ff4a75;
+            font-size: 24px;
+            margin-bottom: 25px;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            height: 50px;
+            position: relative;
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.1s ease;
+        }
+
+        #btn-si {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        #btn-no {
+            background-color: #f44336;
+            color: white;
+            position: absolute;
+        }
+
+        /* Estilos para la pantalla de actividades */
+        .hidden {
+            display: none !important;
+        }
+
+        .actividad-btn {
+            background-color: #ff4a75;
+            color: white;
+            width: 100%;
+            margin: 10px 0;
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 10px;
+            padding: 12px 0;
+        }
+
+        .actividad-btn:hover {
+            background-color: #e03e66;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PANTALLA 1: LA PREGUNTA -->
+    <div id="pantalla-pregunta" class="card">
+        <h1>¿Te gustaría salir conmigo este fin de semana? 😊</h1>
+        <div class="btn-container">
+            <button id="btn-si" onclick="aceptarInvitacion()">¡Sí!</button>
+            <button id="btn-no" onmouseover="moverBotonNo()" onclick="moverBotonNo()">No</button>
+        </div>
+    </div>
+
+    <!-- PANTALLA 2: LAS ACTIVIDADES -->
+    <div id="pantalla-actividades" class="card hidden">
+        <h1>¡Sabiíía que dirías que sí! 🥳<br><br>¿Qué plan se te antoja más?</h1>
+        <button class="actividad-btn" onclick="elegirPlan('Ir por unos tacos y cantar en el carro')">🌮 Tacos + Carpool Karaoke</button>
+        <button class="actividad-btn" onclick="elegirPlan('Ir a cenar bonito')">✨ Cena coqueta</button>
+        <button class="actividad-btn" onclick="elegirPlan('Un café y caminar por ahí')">☕ Café + Caminata tranqui</button>
+        <button class="actividad-btn" onclick="elegirPlan('Un plan sorpresa')">🤫 Plan Sorpresa</button>
+    </div>
+
+    <script>
+        // Función para que el botón "No" escape
+        function moverBotonNo() {
+            const btnNo = document.getElementById('btn-no');
+            
+            // Calculamos posiciones aleatorias dentro de la pantalla
+            const x = Math.random() * (window.innerWidth - btnNo.offsetWidth - 20);
+            const y = Math.random() * (window.innerHeight - btnNo.offsetHeight - 20);
+            
+            // Sacamos el botón de su contenedor para que se mueva por TODA la pantalla
+            btnNo.style.position = 'fixed';
+            btnNo.style.left = x + 'px';
+            btnNo.style.top = y + 'px';
+        }
+
+        // Función para cambiar de pantalla al dar clic en SÍ
+        function aceptarInvitacion() {
+            document.getElementById('pantalla-pregunta').classList.add('hidden');
+            document.getElementById('pantalla-actividades').classList.remove('hidden');
+        }
+
+        // Función para cuando elija la actividad (puedes cambiar lo que hace)
+        function elegirPlan(plan) {
+            alert('¡Trato hecho! Elegiste: ' + plan + '. Al rato te paso los detalles en un mensaje 😉');
+        }
+    </script>
+</body>
+</html>
