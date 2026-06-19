@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tengo una pregunta...</title>
+    <title>¿Cocinamos juntos?</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -12,7 +12,7 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #ffeef2;
+            background-color: #fff6ed; /* Fondo crema cálido estilo cocina */
             overflow: hidden;
         }
 
@@ -20,24 +20,25 @@
             background: white;
             padding: 30px;
             border-radius: 20px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
             text-align: center;
-            max-width: 400px;
+            max-width: 450px;
             width: 90%;
             position: relative;
             box-sizing: border-box;
         }
 
         h1 {
-            color: #ff4a75;
+            color: #d35400; /* Naranja hogareño */
             font-size: 24px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         p {
             color: #555;
             font-size: 16px;
             line-height: 1.5;
+            margin-bottom: 20px;
         }
 
         .btn-container {
@@ -56,115 +57,135 @@
             border: none;
             border-radius: 10px;
             cursor: pointer;
-            /* Eliminamos transiciones largas para que el botón escape al instante en celular */
             transition: transform 0.05s ease; 
         }
 
         #btn-si {
-            background-color: #4caf50;
+            background-color: #545a3e; /* Verde oliva/cocina */
             color: white;
         }
 
         #btn-no {
-            background-color: #f44336;
+            background-color: #e74c3c;
             color: white;
             position: absolute;
-            /* Evita que el zoom del celular rompa el click */
-            touch-action: none; 
+            touch-action: none; /* Evita que el celular registre el toque antes de moverse */
         }
 
         .hidden {
             display: none !important;
         }
 
+        /* Estilos para el menú de comida */
+        .food-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
         .actividad-btn {
-            background-color: #ff4a75;
-            color: white;
-            width: 100%;
-            margin: 10px 0;
-            display: block;
-            text-align: center;
-            text-decoration: none;
-            border-radius: 10px;
-            padding: 12px 0;
-            font-size: 16px;
+            background-color: white;
+            color: #333;
+            border: 2px solid #f3d9c4;
+            border-radius: 12px;
+            padding: 15px 10px;
+            font-size: 15px;
             font-weight: bold;
             cursor: pointer;
-            border: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
         }
 
         .actividad-btn:hover {
-            background-color: #e03e66;
+            background-color: #fff3eb;
+            border-color: #d35400;
+            color: #d35400;
         }
 
-        /* Estilos para la foto final */
+        .food-emoji {
+            font-size: 28px;
+        }
+
+        /* Estilos para la pantalla final */
         .foto-final {
             width: 100%;
-            max-height: 200px;
+            max-height: 220px;
             object-fit: cover;
             border-radius: 15px;
             margin-top: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
         }
     </style>
 </head>
 <body>
 
     <div id="pantalla-pregunta" class="card">
-        <h1>Sisi🤍 ¿Te gustaría salir conmigo este fin de semana? 😊</h1>
+        <h1>¿Cocinamos juntos? 🍳👨‍🍳</h1>
+        <p>He estado pensando que sería un plan increíble preparar algo rico juntos. ¿Qué dices?</p>
         <div class="btn-container">
-            <button id="btn-si" onclick="aceptarInvitacion()">¡Sí!</button>
-            <button id="btn-no" onmouseover="moverBotonNo()" ontouchstart="moverBotonNo()" onclick="moverBotonNo(event)">No</button>
+            <button id="btn-si" onclick="aceptarInvitacion()">¡Sí, de una!</button>
+            <button id="btn-no" onmouseover="moverBotonNo()" ontouchstart="moverBotonNo(event)" onclick="moverBotonNo(event)">No</button>
         </div>
     </div>
 
     <div id="pantalla-actividades" class="card hidden">
-        <h1>¡Sabííía que dirías que sí! 🥳<br><br>¿Qué plan se te antoja más?</h1>
-        <button class="actividad-btn" onclick="elegirPlan('Plan tranqui')">🌮 Desayuno + Plática en el coche</button>
-        <button class="actividad-btn" onclick="elegirPlan('Plan tranqui con tu perrihjo')">✨ Desayuno + pasear a Ragnar</button>
-        <button class="actividad-btn" onclick="elegirPlan('Un plan tranqui con tu perrihjo')">☕ Café + Caminata tranqui con Ragnar</button>
-        <button class="actividad-btn" onclick="elegirPlan('Un plan tranqui con tu perrihjo')">🐶 Ir a camniar a la plaza con Ragnar</button>
+        <h1>¡Sabiíía que dirías que sí! 🥳</h1>
+        <p>Ahora la parte más importante... ¿Qué se te antoja más preparar?</p>
+        
+        <div class="food-grid">
+            <button class="actividad-btn" onclick="elegirPlan('Sushi 🍣')">
+                <span class="food-emoji">🍣</span> Sushi
+            </button>
+            <button class="actividad-btn" onclick="elegirPlan('Arroz chino 🍚')">
+                <span class="food-emoji">🍚</span> Arroz chino
+            </button>
+            <button class="actividad-btn" onclick="elegirPlan('Ramen coreano muy picante 🍜🔥')">
+                <span class="food-emoji">🍜</span> Ramen coreano (Muy picante)
+            </button>
+            <button class="actividad-btn" onclick="elegirPlan('Tortitas de papa 🥔')">
+                <span class="food-emoji">🥔</span> Tortitas de papa
+            </button>
+        </div>
     </div>
 
     <div id="pantalla-final" class="card hidden">
         <h1>¡Trato hecho! 🎉</h1>
-        <p>Qué mal que hayas dicho que sí🙄, tenía la esperanza de no volver a verte, pero bueno. prepárate para el plan de: <br><strong id="plan-elegido" style="color: #ff4a75;"></strong></p>
-        <p>Escríbeme por mensaje para ponernos de acuerdo con la hora y el lugar exacto. 😉 Mándame captura de esto.</p>
+        <p>Me alegra muchísimo. Prepárate para que cocinemos: <br><strong id="plan-elegido" style="color: #d35400; font-size: 18px;"></strong></p>
+        <p>Escríbeme por mensaje ahora mismo para ponernos de acuerdo con la hora y los ingredientes. 😉</p>
         
-        <img class="foto-final" src="nuestrafoto.jpg" alt="Celebración">
+        <img class="foto-final" src="foto.jpg" alt="Cita para cocinar">
     </div>
 
-<script>
-    // Función MEJORADA para separar PC y Celular
-    function moverBotonNo(event) {
-        const btnNo = document.getElementById('btn-no');
-
-        // REGLA CRÍTICA PARA CELULAR:
-        // Si el evento es táctil (touchstart), movemos el botón y PREVENIMOS el click.
-        if (event && event.type === 'touchstart') {
-            event.preventDefault(); // <-- Esto evita que el click se ejecute
+    <script>
+        // Lógica estricta para que el botón "No" huya en PC y móvil sin activar clics por error
+        function moverBotonNo(event) {
+            if(event) event.preventDefault(); // Detiene por completo el click en celulares
+            
+            const btnNo = document.getElementById('btn-no');
+            
+            // Rango seguro para evitar que se salga de los bordes de la pantalla
+            const x = Math.random() * (window.innerWidth - btnNo.offsetWidth - 30);
+            const y = Math.random() * (window.innerHeight - btnNo.offsetHeight - 30);
+            
+            btnNo.style.position = 'fixed';
+            btnNo.style.left = x + 'px';
+            btnNo.style.top = y + 'px';
         }
 
-        // --- Lógica de movimiento (se mantiene de la versión anterior) ---
-        // Calculamos posiciones aleatorias dentro de la pantalla
-        const x = Math.random() * (window.innerWidth - btnNo.offsetWidth - 30);
-        const y = Math.random() * (window.innerHeight - btnNo.offsetHeight - 30);
+        function aceptarInvitacion() {
+            document.getElementById('pantalla-pregunta').classList.add('hidden');
+            document.getElementById('pantalla-actividades').classList.remove('hidden');
+        }
 
-        // Movemos el botón a la nueva posición fixed
-        btnNo.style.position = 'fixed';
-        btnNo.style.left = x + 'px';
-        btnNo.style.top = y + 'px';
-    }
-
-    function aceptarInvitacion() {
-        document.getElementById('pantalla-pregunta').classList.add('hidden');
-        document.getElementById('pantalla-actividades').classList.remove('hidden');
-    }
-
-    function elegirPlan(plan) {
-        document.getElementById('pantalla-actividades').classList.add('hidden');
-        document.getElementById('plan-elegido').innerText = plan;
-        document.getElementById('pantalla-final').classList.remove('hidden');
-    }
-</script>
+        function elegirPlan(plan) {
+            document.getElementById('pantalla-actividades').classList.add('hidden');
+            document.getElementById('plan-elegido').innerText = plan;
+            document.getElementById('pantalla-final').classList.remove('hidden');
+        }
+    </script>
 </body>
 </html>
