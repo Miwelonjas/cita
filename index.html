@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aventura en los Dinamos 🏔️</title>
+    <title>Escapada a Mineral del Chico 🌲✨</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -12,7 +12,7 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #ebf2eb; /* Verde bosque muy claro y fresco */
+            background-color: #f2efe9; /* Fondo crema/madera claro */
             overflow: hidden;
         }
 
@@ -20,23 +20,23 @@
             background: white;
             padding: 30px;
             border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(44, 62, 44, 0.1); /* Sombra con toque verdoso */
+            box-shadow: 0 10px 25px rgba(40, 54, 24, 0.1);
             text-align: center;
             max-width: 450px;
             width: 90%;
             position: relative;
             box-sizing: border-box;
-            border: 2px solid #cedecb;
+            border: 2px solid #d4ceb8;
         }
 
         h1 {
-            color: #2d4a22; /* Verde pino profundo de Los Dinamos */
+            color: #283618; /* Verde bosque profundo */
             font-size: 24px;
             margin-bottom: 20px;
         }
 
         p {
-            color: #4a5d4e;
+            color: #4a4238;
             font-size: 16px;
             line-height: 1.5;
             margin-bottom: 20px;
@@ -62,22 +62,22 @@
         }
 
         #btn-si {
-            background-color: #3b5e2b; /* Verde montaña */
+            background-color: #606c38; /* Verde oliva/bosque */
             color: white;
         }
 
         #btn-no {
-            background-color: #c0392b; /* Rojo tierra/óxido */
+            background-color: #bc6c25; /* Terracota / madera */
             color: white;
             position: absolute;
-            touch-action: none; /* Evita que el celular registre el toque antes de moverse */
+            touch-action: none;
         }
 
         .hidden {
             display: none !important;
         }
 
-        /* Estilos para el menú de snacks del hike */
+        /* Estilos para el menú de actividades */
         .food-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -87,8 +87,8 @@
 
         .actividad-btn {
             background-color: white;
-            color: #2d4a22;
-            border: 2px solid #cedecb;
+            color: #283618;
+            border: 2px solid #d4ceb8;
             border-radius: 12px;
             padding: 15px 10px;
             font-size: 15px;
@@ -102,9 +102,9 @@
         }
 
         .actividad-btn:hover {
-            background-color: #f1f6f0;
-            border-color: #3b5e2b;
-            color: #3b5e2b;
+            background-color: #f7f5f0;
+            border-color: #606c38;
+            color: #606c38;
         }
 
         .food-emoji {
@@ -124,51 +124,56 @@
 </head>
 <body>
 
+    <!-- PANTALLA 1: LA PREGUNTA DE VIAJE -->
     <div id="pantalla-pregunta" class="card">
-        <h1>¿Quieres ir a hacer nuestro primer Hike juntos? 🏔️🥾</h1>
-        <p>A los Dinamos. Bosque, río, aire fresco, una buena caminata y muchos besos. ¿Jalas?</p>
+        <h1>¿Vamos a pasar un fin de semana a Mineral del Chico? 🌲🏡</h1>
+        <p>Bosque, clima frío rico, cabaña y desconectarnos un rato de todo. ¿Te queda?</p>
         <div class="btn-container">
-            <button id="btn-si" onclick="aceptarInvitacion()">¡Obvio que sí!</button>
+            <button id="btn-si" onclick="aceptarInvitacion()">¡Jalo jalo!</button>
             <button id="btn-no" onmouseover="moverBotonNo()" ontouchstart="moverBotonNo(event)" onclick="moverBotonNo(event)">No</button>
         </div>
     </div>
 
+    <!-- PANTALLA 2: ELECCIÓN DE ACTIVIDAD -->
     <div id="pantalla-actividades" class="card hidden">
-        <h1>¡Sabííía que dirías que sí! 🥳🎒</h1>
-        <p>Para recuperar energías en la cima... ¿Qué snack prefieres que llevemos?</p>
+        <h1>¡Sabía que dirías que sí! 🥳✨</h1>
+        <p>¿Qué es lo que más se te antoja hacer estando allá?</p>
         
         <div class="food-grid">
-            <button class="actividad-btn" onclick="elegirPlan('Barritas energéticas 🍫')">
-                <span class="food-emoji">🍫</span> Barritas energéticas
+            <button class="actividad-btn" onclick="elegirPlan('Fogata con malvaviscos o chalchicha 🪵🔥')">
+                <span class="food-emoji">🔥</span> Fogata con malvaviscos o chalchicha
             </button>
-            <button class="actividad-btn" onclick="elegirPlan('Sandwiches 🥪')">
-                <span class="food-emoji">🥪</span> Sandwiches
+            <button class="actividad-btn" onclick="elegirPlan('Caminata nocturna por el bosque 🥾🌲')">
+                <span class="food-emoji">🌲</span> Caminata nocturna por el bosque
             </button>
-            <button class="actividad-btn" onclick="elegirPlan('Tortas 🥖')">
-                <span class="food-emoji">🥖</span> Tortas
+            <button class="actividad-btn" onclick="elegirPlan('Café / Chocolate caliente y pelis 📽☕🍫')">
+                <span class="food-emoji">☕</span> Café / Chocolate caliente y pelis
             </button>
-            <button class="actividad-btn" onclick="elegirPlan('Fruta 🥭')">
-                <span class="food-emoji">🥭</span> Fruta
+            <button class="actividad-btn" onclick="elegirPlan('Pueblito y comer algo rico 🏘️🌮')">
+                <span class="food-emoji">🏘️</span> Pueblito y comer rico
+            </button>
+            <button class="actividad-btn" onclick="elegirPlan('Todas las anteriores 📽☕🏘️🌲')">
+                <span class="food-emoji">📽☕🏘🌲</span> Todas las anteriores
             </button>
         </div>
     </div>
 
+    <!-- PANTALLA 3: CONFIRMACIÓN FINAL -->
     <div id="pantalla-final" class="card hidden">
-        <h1>¡Sí me queda el Hike! 🗺️🌲</h1>
-        <p>Jalo jalo, sí me queda. El sábado hacemos las compras necesarias para llevar el snack elegido: <br><strong id="plan-elegido" style="color: #3b5e2b; font-size: 18px;"></strong></p>
-        <p>Escríbeme por mensaje para ponernos de acuerdo con la hora de salida y decirle a Booker que nos despierte. 😉 Mándame captura de esto.</p>
-        
-        <img class="foto-final" src="nuestrafoto.jpg" alt="Hike Los Dinamos">
+        <h1>¡Nos vamos al bosque! 🗺️🌲</h1>
+        <p>Prepara la chamarra y el impermeable. Nos espera un finde en el chiquitín con: <br><strong id="plan-elegido" style="color: #bc6c25; font-size: 18px;"></strong></p>
+                
+        <!-- Carga tu imagen 'foto.jpg' de GitHub -->
+        <img class="foto-final" src="foto.jpg" alt="Mineral del Chico">
     </div>
 
     <script>
-        // Lógica estricta anti-clics en celular para el botón "No"
+        // Lógica estricta para que el botón "No" huya en celular y PC
         function moverBotonNo(event) {
-            if(event) event.preventDefault(); // Congela por completo el click en celulares
+            if(event) event.preventDefault(); // Detiene el clic en teléfonos
             
             const btnNo = document.getElementById('btn-no');
             
-            // Rango de movimiento seguro dentro de la pantalla
             const x = Math.random() * (window.innerWidth - btnNo.offsetWidth - 30);
             const y = Math.random() * (window.innerHeight - btnNo.offsetHeight - 30);
             
