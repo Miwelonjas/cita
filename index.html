@@ -3,195 +3,530 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Escapada a Mineral del Chico 🌲✨</title>
+    <title>Un Ramo de Tulipanes para Ti 🌷💛</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Great+Vibes&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Tone.js for soft ambient music -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f2efe9; /* Fondo crema/madera claro */
-            overflow: hidden;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: radial-gradient(circle at center, #2e230d 0%, #171003 70%, #0c0801 100%);
+            overflow-x: hidden;
+            touch-action: manipulation;
         }
 
-        .card {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(40, 54, 24, 0.1);
-            text-align: center;
-            max-width: 450px;
-            width: 90%;
-            position: relative;
-            box-sizing: border-box;
-            border: 2px solid #d4ceb8;
+        .font-cursive {
+            font-family: 'Great Vibes', cursive;
         }
 
-        h1 {
-            color: #283618; /* Verde bosque profundo */
-            font-size: 24px;
-            margin-bottom: 20px;
+        .font-handwriting {
+            font-family: 'Caveat', cursive;
         }
 
-        p {
-            color: #4a4238;
-            font-size: 16px;
-            line-height: 1.5;
-            margin-bottom: 20px;
+        .text-glow {
+            text-shadow: 0 0 16px rgba(254, 240, 138, 0.7), 0 0 30px rgba(234, 179, 8, 0.3);
         }
 
-        .btn-container {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 20px;
-            height: 50px;
-            position: relative;
+        /* Floating Love Messages Animation */
+        @keyframes floatUpAndFade {
+            0% {
+                opacity: 0;
+                transform: translateY(20px) scale(0.8) rotate(-4deg);
+            }
+            20% {
+                opacity: 1;
+                transform: translateY(-15px) scale(1) rotate(2deg);
+            }
+            80% {
+                opacity: 0.85;
+                transform: translateY(-80px) scale(1.03) rotate(-2deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-130px) scale(0.95) rotate(4deg);
+            }
         }
 
-        button {
-            padding: 12px 25px;
-            font-size: 16px;
-            font-weight: bold;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: transform 0.05s ease; 
-        }
-
-        #btn-si {
-            background-color: #606c38; /* Verde oliva/bosque */
-            color: white;
-        }
-
-        #btn-no {
-            background-color: #bc6c25; /* Terracota / madera */
-            color: white;
+        .floating-message {
             position: absolute;
-            touch-action: none;
+            pointer-events: none;
+            animation: floatUpAndFade 4.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            z-index: 50;
         }
 
-        .hidden {
-            display: none !important;
+        /* Ambient Petal & Light Particle Falling Animation */
+        @keyframes petalFall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg) translateX(0);
+                opacity: 0.9;
+            }
+            100% {
+                transform: translateY(105vh) rotate(540deg) translateX(90px);
+                opacity: 0.1;
+            }
         }
 
-        /* Estilos para el menú de actividades */
-        .food-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-top: 15px;
+        .falling-item {
+            position: absolute;
+            top: -5vh;
+            pointer-events: none;
+            animation: petalFall linear infinite;
+            z-index: 10;
         }
 
-        .actividad-btn {
-            background-color: white;
-            color: #283618;
-            border: 2px solid #d4ceb8;
-            border-radius: 12px;
-            padding: 15px 10px;
-            font-size: 15px;
-            font-weight: bold;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.2s ease;
+        /* Flower Bloom Effect on Click */
+        @keyframes popBlossom {
+            0% {
+                transform: scale(0) rotate(-30deg);
+                opacity: 0;
+            }
+            70% {
+                transform: scale(1.2) rotate(8deg);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
         }
 
-        .actividad-btn:hover {
-            background-color: #f7f5f0;
-            border-color: #606c38;
-            color: #606c38;
+        .pop-flower {
+            animation: popBlossom 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
 
-        .food-emoji {
-            font-size: 28px;
+        /* Subtle Swaying Bouquet Animation */
+        @keyframes gentleSway {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(1.5deg) scale(1.02); }
         }
 
-        /* Estilos para la foto final */
-        .foto-final {
-            width: 100%;
-            max-height: 220px;
-            object-fit: cover;
-            border-radius: 15px;
-            margin-top: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        .animate-sway {
+            animation: gentleSway 5s ease-in-out infinite;
+        }
+
+        /* Custom Scrollbar for Letter Modal */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.2);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(234, 179, 8, 0.5);
+            border-radius: 10px;
         }
     </style>
 </head>
-<body>
+<body class="min-h-screen text-amber-100 flex flex-col justify-between items-center relative overflow-hidden select-none">
 
-    <!-- PANTALLA 1: LA PREGUNTA DE VIAJE -->
-    <div id="pantalla-pregunta" class="card">
-        <h1>¿Vamos a pasar un fin de semana a Mineral del Chico? 🌲🏡</h1>
-        <p>Bosque, clima frío rico, cabaña y desconectarnos un rato de todo. ¿Te queda?</p>
-        <div class="btn-container">
-            <button id="btn-si" onclick="aceptarInvitacion()">¡Jalo jalo!</button>
-            <button id="btn-no" onmouseover="moverBotonNo()" ontouchstart="moverBotonNo(event)" onclick="moverBotonNo(event)">No</button>
+    <div id="particles-container" class="fixed inset-0 pointer-events-none z-0"></div>
+
+    <header class="w-full max-w-4xl px-6 pt-6 flex justify-between items-center z-20 relative">
+        <div class="flex items-center gap-2 bg-amber-950/50 border border-amber-500/30 backdrop-blur-md px-4 py-2 rounded-full shadow-lg">
+            <div class="w-2.5 h-2.5 rounded-full bg-yellow-400 animate-ping"></div>
+            <span class="text-xs uppercase tracking-widest text-amber-200 font-semibold">Toca la pantalla 🌷</span>
         </div>
-    </div>
-
-    <!-- PANTALLA 2: ELECCIÓN DE ACTIVIDAD -->
-    <div id="pantalla-actividades" class="card hidden">
-        <h1>¡Sabía que dirías que sí! 🥳✨</h1>
-        <p>¿Qué es lo que más se te antoja hacer estando allá?</p>
         
-        <div class="food-grid">
-            <button class="actividad-btn" onclick="elegirPlan('Fogata con malvaviscos o chalchicha 🪵🔥')">
-                <span class="food-emoji">🔥</span> Fogata con malvaviscos o chalchicha
-            </button>
-            <button class="actividad-btn" onclick="elegirPlan('Caminata nocturna por el bosque 🥾🌲')">
-                <span class="food-emoji">🌲</span> Caminata nocturna por el bosque
-            </button>
-            <button class="actividad-btn" onclick="elegirPlan('Café / Chocolate caliente y pelis 📽☕🍫')">
-                <span class="food-emoji">☕</span> Café / Chocolate caliente y pelis
-            </button>
-            <button class="actividad-btn" onclick="elegirPlan('Pueblito y comer algo rico 🏘️🌮')">
-                <span class="food-emoji">🏘️</span> Pueblito y comer rico
-            </button>
-            <button class="actividad-btn" onclick="elegirPlan('Todas las anteriores 📽☕🏘️🌲')">
-                <span class="food-emoji">📽☕🏘🌲</span> Todas las anteriores
+        <button id="music-btn" class="flex items-center gap-2.5 bg-amber-950/70 hover:bg-amber-900/90 border border-amber-500/40 px-4 py-2.5 rounded-full text-xs font-medium text-amber-200 transition-all duration-300 backdrop-blur-md shadow-lg active:scale-95">
+            <i id="music-icon" class="fas fa-music text-yellow-400 text-sm"></i>
+            <span id="music-text">Música: Desactivada</span>
+        </button>
+    </header>
+
+    <main class="w-full max-w-2xl px-4 py-4 flex flex-col items-center text-center z-20 my-auto">
+        
+        <!-- Interactive Tulip & Rose Bouquet Centerpiece -->
+        <div class="relative my-2 cursor-pointer group" id="center-bouquet-btn" title="¡Haz clic en el ramo!">
+            <!-- Outer Glow Aura -->
+            <div class="absolute -inset-10 bg-gradient-to-r from-yellow-500/20 via-amber-400/35 to-yellow-600/20 rounded-full blur-3xl group-hover:bg-yellow-400/50 transition-all duration-500"></div>
+            
+            <!-- High Quality Tulip, Rose & Mimosa Bouquet SVG -->
+            <svg class="w-72 h-72 md:w-96 md:h-96 drop-shadow-[0_0_40px_rgba(250,204,21,0.7)] transform group-hover:scale-105 transition-transform duration-500 animate-sway" viewBox="0 0 340 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g id="bouquet-composition">
+                    
+                    <!-- Paper Wrapping Back Layer -->
+                    <path d="M 120 220 L 75 330 Q 170 360 265 330 L 220 220 Z" fill="#291505" opacity="0.95" />
+                    <path d="M 100 200 L 65 325 Q 170 365 275 325 L 240 200 Z" fill="#582a08" stroke="#b45309" stroke-width="2.5"/>
+                    <path d="M 110 205 L 170 340 L 230 205" fill="none" stroke="#d97706" stroke-width="1.8" stroke-dasharray="5 5"/>
+
+                    <!-- Ribbon Bow & Tails -->
+                    <path d="M 130 235 C 150 220, 190 220, 210 235 C 225 250, 115 250, 130 235 Z" fill="#facc15"/>
+                    <circle cx="170" cy="238" r="9" fill="#eab308" stroke="#fef08a" stroke-width="1.5"/>
+                    <path d="M 165 242 C 158 275, 138 300, 128 320 C 136 320, 155 288, 168 245 Z" fill="#facc15"/>
+                    <path d="M 175 242 C 182 275, 202 300, 212 320 C 204 320, 185 288, 172 245 Z" fill="#facc15"/>
+
+                    <!-- Greenery & Leaves (Eucalyptus & Tulip Leaves) -->
+                    <path d="M 70 160 C 30 130, 45 90, 75 110 C 90 140, 80 170, 70 160 Z" fill="#15803d"/>
+                    <path d="M 270 160 C 310 130, 295 90, 265 110 C 250 140, 260 170, 270 160 Z" fill="#15803d"/>
+                    <path d="M 140 120 Q 120 40 150 45 Q 155 95 140 120 Z" fill="#166534"/>
+                    <path d="M 200 120 Q 220 40 190 45 Q 185 95 200 120 Z" fill="#166534"/>
+                    <path d="M 100 110 Q 70 50 95 60 Q 110 90 100 110 Z" fill="#22c55e" opacity="0.8"/>
+                    <path d="M 240 110 Q 270 50 245 60 Q 230 90 240 110 Z" fill="#22c55e" opacity="0.8"/>
+
+                    <!-- MIMOSAS / DAISIES ACCENTS (Small yellow dots & tiny petals) -->
+                    <g id="mimosas-left" fill="#fde047">
+                        <circle cx="85" cy="100" r="5"/><circle cx="92" cy="92" r="4"/><circle cx="78" cy="90" r="4.5"/>
+                        <circle cx="72" cy="105" r="4"/><circle cx="88" cy="110" r="5"/>
+                    </g>
+                    <g id="mimosas-right" fill="#fde047">
+                        <circle cx="255" cy="100" r="5"/><circle cx="248" cy="92" r="4"/><circle cx="262" cy="90" r="4.5"/>
+                        <circle cx="268" cy="105" r="4"/><circle cx="252" cy="110" r="5"/>
+                    </g>
+
+                    <!-- CENTER TULIP 1 (Tall Main Yellow Tulip) -->
+                    <g id="tulip-center" transform="translate(170, 95) scale(1.15)">
+                        <!-- Tulip Petals Base -->
+                        <path d="M 0 -38 C -26 -15, -20 20, 0 35 C 20 20, 26 -15, 0 -38 Z" fill="#facc15"/>
+                        <!-- Left Overlapping Petal -->
+                        <path d="M -8 -35 C -30 -10, -15 20, 0 35 C -5 15, -12 -15, -8 -35 Z" fill="#fde047"/>
+                        <!-- Right Overlapping Petal -->
+                        <path d="M 8 -35 C 30 -10, 15 20, 0 35 C 5 15, 12 -15, 8 -35 Z" fill="#eab308"/>
+                        <!-- Inner Glow Petal -->
+                        <path d="M 0 -36 C -12 -20, -10 10, 0 28 C 10 10, 12 -20, 0 -36 Z" fill="#fff176"/>
+                    </g>
+
+                    <!-- LEFT TULIP 2 (Blooming Left) -->
+                    <g id="tulip-left" transform="translate(115, 120) rotate(-22) scale(1.05)">
+                        <path d="M 0 -35 C -24 -12, -18 18, 0 32 C 18 18, 24 -12, 0 -35 Z" fill="#facc15"/>
+                        <path d="M -7 -32 C -28 -8, -12 18, 0 32 Z" fill="#fde047"/>
+                        <path d="M 7 -32 C 28 -8, 12 18, 0 32 Z" fill="#ca8a04"/>
+                        <path d="M 0 -33 C -10 -18, -8 8, 0 25 Z" fill="#fef08a"/>
+                    </g>
+
+                    <!-- RIGHT TULIP 3 (Blooming Right) -->
+                    <g id="tulip-right" transform="translate(225, 120) rotate(22) scale(1.05)">
+                        <path d="M 0 -35 C -24 -12, -18 18, 0 32 C 18 18, 24 -12, 0 -35 Z" fill="#facc15"/>
+                        <path d="M -7 -32 C -28 -8, -12 18, 0 32 Z" fill="#ca8a04"/>
+                        <path d="M 7 -32 C 28 -8, 12 18, 0 32 Z" fill="#fde047"/>
+                        <path d="M 0 -33 C 10 -18, 8 8, 0 25 Z" fill="#fef08a"/>
+                    </g>
+
+                    <!-- TOP LEFT TULIP BUD -->
+                    <g id="tulip-bud-left" transform="translate(125, 60) rotate(-10) scale(0.85)">
+                        <path d="M 0 -30 C -20 -10, -15 15, 0 28 C 15 15, 20 -10, 0 -30 Z" fill="#facc15"/>
+                        <path d="M -5 -28 C -22 -5, -10 15, 0 28 Z" fill="#fde047"/>
+                        <path d="M 5 -28 C 22 -5, 10 15, 0 28 Z" fill="#eab308"/>
+                    </g>
+
+                    <!-- TOP RIGHT TULIP BUD -->
+                    <g id="tulip-bud-right" transform="translate(215, 60) rotate(10) scale(0.85)">
+                        <path d="M 0 -30 C -20 -10, -15 15, 0 28 C 15 15, 20 -10, 0 -30 Z" fill="#facc15"/>
+                        <path d="M -5 -28 C -22 -5, -10 15, 0 28 Z" fill="#eab308"/>
+                        <path d="M 5 -28 C 22 -5, 10 15, 0 28 Z" fill="#fde047"/>
+                    </g>
+
+                    <!-- ELEGANT FULL YELLOW ROSE 1 (Lower Center) -->
+                    <g id="rose-center" transform="translate(170, 165) scale(1.1)">
+                        <circle cx="0" cy="0" r="28" fill="#fef08a"/>
+                        <!-- Outer Rose Petals -->
+                        <path d="M -22 -10 C -18 -32, 18 -32, 22 -10 C 28 15, -28 20, -22 -10 Z" fill="#facc15"/>
+                        <!-- Middle Petal Layers -->
+                        <path d="M -16 -6 C -12 -22, 12 -22, 16 -6 C 20 10, -20 14, -16 -6 Z" fill="#eab308"/>
+                        <path d="M -10 -4 C -8 -15, 8 -15, 10 -4 C 12 6, -12 10, -10 -4 Z" fill="#ca8a04"/>
+                        <!-- Rose Core -->
+                        <circle cx="0" cy="-1" r="5" fill="#a16207"/>
+                    </g>
+
+                    <!-- ELEGANT FULL YELLOW ROSE 2 (Mid-Left) -->
+                    <g id="rose-left" transform="translate(85, 165) rotate(-15) scale(0.9)">
+                        <circle cx="0" cy="0" r="26" fill="#fef08a"/>
+                        <path d="M -20 -8 C -16 -28, 16 -28, 20 -8 C 25 12, -25 16, -20 -8 Z" fill="#facc15"/>
+                        <path d="M -14 -5 C -10 -18, 10 -18, 14 -5 C 18 8, -18 10, -14 -5 Z" fill="#eab308"/>
+                        <circle cx="0" cy="-1" r="4.5" fill="#ca8a04"/>
+                    </g>
+
+                    <!-- ELEGANT FULL YELLOW ROSE 3 (Mid-Right) -->
+                    <g id="rose-right" transform="translate(255, 165) rotate(15) scale(0.9)">
+                        <circle cx="0" cy="0" r="26" fill="#fef08a"/>
+                        <path d="M -20 -8 C -16 -28, 16 -28, 20 -8 C 25 12, -25 16, -20 -8 Z" fill="#facc15"/>
+                        <path d="M -14 -5 C -10 -18, 10 -18, 14 -5 C 18 8, -18 10, -14 -5 Z" fill="#eab308"/>
+                        <circle cx="0" cy="-1" r="4.5" fill="#ca8a04"/>
+                    </g>
+
+                    <!-- Sparkles & Magic Glow Points -->
+                    <circle cx="170" cy="95" r="2.5" fill="#ffffff" class="animate-ping"/>
+                    <circle cx="115" cy="120" r="2" fill="#ffffff" class="animate-ping"/>
+                    <circle cx="225" cy="120" r="2" fill="#ffffff" class="animate-ping"/>
+                    <circle cx="170" cy="165" r="2" fill="#ffffff" class="animate-ping"/>
+                </g>
+            </svg>
+        </div>
+
+        <!-- Title & Subtitle -->
+        <h1 class="font-cursive text-5xl md:text-6xl text-yellow-300 mb-1 text-glow">
+            Un Ramo de Tulipanes para Ti 🌷💛
+        </h1>
+        <p class="text-amber-200/90 text-sm md:text-base font-light max-w-md mb-5 tracking-wide">
+            Tulipanes y rosas amarillas que florecen únicamente para ti y jamás perderán su encanto.
+        </p>
+
+        <div id="quote-card" class="w-full bg-amber-950/40 border border-amber-500/30 backdrop-blur-md rounded-3xl p-6 md:p-8 shadow-2xl relative overflow-hidden transition-all duration-300 hover:border-amber-400/50 group">
+            <div class="absolute -right-10 -bottom-10 w-36 h-36 bg-yellow-500/10 rounded-full blur-2xl pointer-events-none"></div>
+            
+            <i class="fas fa-quote-left text-amber-500/30 text-3xl mb-3 block"></i>
+            
+            <p id="main-quote" class="font-handwriting text-2xl md:text-3xl text-yellow-100 min-h-[90px] flex items-center justify-center transition-opacity duration-300 leading-relaxed">
+                "Te regalo este ramo de tulipanes amarillos para iluminar cada uno de tus días con amor y alegría."
+            </p>
+
+            <i class="fas fa-quote-right text-amber-500/30 text-3xl mt-1 block ml-auto"></i>
+
+            <!-- Action Button inside card -->
+            <button id="next-msg-btn" class="mt-5 w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 hover:from-amber-400 hover:to-yellow-300 text-amber-950 font-bold text-sm tracking-wider uppercase transition-all duration-300 transform active:scale-95 shadow-lg shadow-amber-500/20 flex items-center justify-center gap-2">
+                <i class="fas fa-heart text-amber-900"></i>
+                <span>Descubrir otra frase de amor</span>
             </button>
         </div>
-    </div>
 
-    <!-- PANTALLA 3: CONFIRMACIÓN FINAL -->
-    <div id="pantalla-final" class="card hidden">
-        <h1>¡Nos vamos al bosque! 🗺️🌲</h1>
-        <p>Prepara la chamarra y el impermeable. Nos espera un finde en el chiquitín con: <br><strong id="plan-elegido" style="color: #bc6c25; font-size: 18px;"></strong></p>
-                
-        <!-- Carga tu imagen 'Fotodinamos.jpg' de GitHub -->
-        <img class="foto-final" src="Fotodinamos.jpg" alt="Mineral del Chico">
+    </main>
+
+    <footer class="w-full py-5 text-center text-xs text-amber-400/70 z-20">
+        <p class="font-light">Hecho con amor 💛 | <button id="open-letter-btn" class="underline text-amber-300 hover:text-yellow-200 font-medium ml-1">Abrir carta especial ✉️</button></p>
+    </footer>
+
+    <!-- Romantic Letter Modal -->
+    <div id="letter-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-gradient-to-b from-amber-950/95 to-neutral-900 border border-amber-500/40 max-w-lg w-full rounded-3xl p-6 md:p-8 relative text-amber-100 shadow-2xl transform scale-90 transition-transform duration-300" id="letter-content">
+            <button id="close-letter-btn" class="absolute top-4 right-4 text-amber-400 hover:text-white w-8 h-8 rounded-full bg-amber-900/50 flex items-center justify-center transition-colors">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="text-center mb-4">
+                <i class="fas fa-envelope-open-text text-amber-400 text-3xl mb-2"></i>
+                <h3 class="font-cursive text-3xl text-yellow-300">Una carta para ti 🌷</h3>
+            </div>
+            <div class="font-handwriting text-xl leading-relaxed text-amber-100/90 max-h-[60vh] overflow-y-auto pr-2 space-y-4">
+                <p>Los tulipanes amarillos simbolizan pensamientos alegres, la llegada de la primavera y un amor radiante.</p>
+                <p>Hoy quise entregarte este ramo digital que permanecerá siempre fresco, como un recordatorio constante de lo especial que eres para mí.</p>
+                <p>Gracias por iluminar mi mundo con tu sonrisa y por llenar cada día de calidez y momentos inolvidables.</p>
+                <p class="text-right text-yellow-300 font-bold pt-2">— Con todo mi cariño ✨</p>
+            </div>
+        </div>
     </div>
 
     <script>
-        // Lógica estricta para que el botón "No" huya en celular y PC
-        function moverBotonNo(event) {
-            if(event) event.preventDefault(); // Detiene el clic en teléfonos
+        // --- ROMANTIC MESSAGES DATABASE ---
+        const romanticMessages = [
+            "Te regalo este ramo de tulipanes amarillos para iluminar cada uno de tus días con amor y alegría.",
+            "Cada tulipán de este ramo representa una razón por la cual te quiero tanto.",
+            "Eres el sol que hace florecer todos mis días.",
+            "Si las sonrisas fueran flores, tú serías el ramo más hermoso de todos.",
+            "Gracias por llenar mi mundo de tanta luz y de amarillos radiantes.",
+            "Un tulipán amarillo para recordarte que tu felicidad es mi mayor deseo.",
+            "Tu presencia en mi vida es como la primavera eterna: cálida, dulce y llena de vida."
+        ];
+
+        const floatingPhrases = [
+            "Te amo 🌷",
+            "Mi lugar feliz ☀️",
+            "Tulipanes para ti 💐",
+            "Siempre juntos ✨",
+            "Mi persona favorita 💖",
+            "Tu sonrisa me ilumina 😊",
+            "Un abrazo apretado 🫂",
+            "Eres mi sol 🌟",
+            "Amor infinito ♾️",
+            "Te adoro 💛",
+            "Mi dulce amor 🌷"
+        ];
+
+        let msgIndex = 0;
+        const mainQuote = document.getElementById('main-quote');
+        const nextMsgBtn = document.getElementById('next-msg-btn');
+        const centerBouquetBtn = document.getElementById('center-bouquet-btn');
+        const letterModal = document.getElementById('letter-modal');
+        const letterContent = document.getElementById('letter-content');
+        const openLetterBtn = document.getElementById('open-letter-btn');
+        const closeLetterBtn = document.getElementById('close-letter-btn');
+        const musicBtn = document.getElementById('music-btn');
+        const musicIcon = document.getElementById('music-icon');
+        const musicText = document.getElementById('music-text');
+        const particlesContainer = document.getElementById('particles-container');
+
+        function generateFallingParticles() {
+            const particleCount = 20;
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'falling-item';
+                
+                const isTulipPetal = Math.random() > 0.4;
+                const size = Math.random() * 14 + 10;
+                
+                if (isTulipPetal) {
+                    particle.innerHTML = `
+                        <svg width="${size}" height="${size * 1.3}" viewBox="0 0 30 40">
+                            <path d="M 15 0 C 0 15, 5 35, 15 40 C 25 35, 30 15, 15 0 Z" fill="${Math.random() > 0.5 ? '#facc15' : '#fde047'}" opacity="0.8"/>
+                        </svg>
+                    `;
+                } else {
+                    particle.innerHTML = `
+                        <div class="rounded-full bg-yellow-300 blur-[1px]" style="width: ${size/2}px; height: ${size/2}px; opacity: 0.7;"></div>
+                    `;
+                }
+
+                particle.style.left = `${Math.random() * 100}vw`;
+                particle.style.animationDuration = `${Math.random() * 6 + 6}s`;
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        generateFallingParticles();
+
+        function createFloatingElement(x, y) {
+            // 1. Floating Text Message
+            const msg = document.createElement('div');
+            msg.className = 'floating-message font-handwriting text-2xl md:text-3xl text-yellow-300 font-bold drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]';
+            msg.style.left = `${x - 45}px`;
+            msg.style.top = `${y - 20}px`;
             
-            const btnNo = document.getElementById('btn-no');
+            const randomPhrase = floatingPhrases[Math.floor(Math.random() * floatingPhrases.length)];
+            msg.textContent = randomPhrase;
             
-            const x = Math.random() * (window.innerWidth - btnNo.offsetWidth - 30);
-            const y = Math.random() * (window.innerHeight - btnNo.offsetHeight - 30);
+            document.body.appendChild(msg);
+
+            // 2. Popping Yellow Tulip / Heart Burst Animation
+            const isTulip = Math.random() > 0.35;
+            const popElement = document.createElement('div');
+            popElement.className = 'pop-flower absolute pointer-events-none z-40';
+            popElement.style.left = `${x - 22}px`;
+            popElement.style.top = `${y - 22}px`;
             
-            btnNo.style.position = 'fixed';
-            btnNo.style.left = x + 'px';
-            btnNo.style.top = y + 'px';
+            if (isTulip) {
+                popElement.innerHTML = `
+                    <svg width="44" height="44" viewBox="0 0 60 60" class="filter drop-shadow-[0_0_8px_rgba(250,204,21,0.8)]">
+                        <path d="M 30 5 C 10 20, 15 45, 30 55 C 45 45, 50 20, 30 5 Z" fill="#facc15"/>
+                        <path d="M 22 8 C 5 25, 18 45, 30 55 Z" fill="#fde047"/>
+                        <path d="M 38 8 C 55 25, 42 45, 30 55 Z" fill="#eab308"/>
+                    </svg>
+                `;
+            } else {
+                popElement.innerHTML = `
+                    <div class="text-3xl filter drop-shadow-[0_0_10px_rgba(250,204,21,0.8)]">💛</div>
+                `;
+            }
+
+            document.body.appendChild(popElement);
+
+            // Cleanup after animation completes
+            setTimeout(() => msg.remove(), 4700);
+            setTimeout(() => popElement.remove(), 1000);
         }
 
-        function aceptarInvitacion() {
-            document.getElementById('pantalla-pregunta').classList.add('hidden');
-            document.getElementById('pantalla-actividades').classList.remove('hidden');
+        // Global Click Event Handler
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('button') || e.target.closest('#letter-modal')) return;
+            createFloatingElement(e.clientX, e.clientY);
+        });
+
+        // Cycle Main Quotes Smoothly
+        function changeQuote() {
+            mainQuote.style.opacity = '0';
+            setTimeout(() => {
+                msgIndex = (msgIndex + 1) % romanticMessages.length;
+                mainQuote.textContent = `"${romanticMessages[msgIndex]}"`;
+                mainQuote.style.opacity = '1';
+            }, 300);
         }
 
-        function elegirPlan(plan) {
-            document.getElementById('pantalla-actividades').classList.add('hidden');
-            document.getElementById('plan-elegido').innerText = plan;
-            document.getElementById('pantalla-final').classList.remove('hidden');
+        nextMsgBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            changeQuote();
+            const rect = nextMsgBtn.getBoundingClientRect();
+            createFloatingElement(rect.left + rect.width / 2, rect.top);
+        });
+
+        centerBouquetBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            changeQuote();
+            const rect = centerBouquetBtn.getBoundingClientRect();
+            createFloatingElement(rect.left + rect.width / 2, rect.top + rect.height / 2);
+        });
+
+        function openModal() {
+            letterModal.classList.remove('opacity-0', 'pointer-events-none');
+            letterContent.classList.remove('scale-90');
+            letterContent.classList.add('scale-100');
         }
+
+        function closeModal() {
+            letterModal.classList.add('opacity-0', 'pointer-events-none');
+            letterContent.classList.remove('scale-100');
+            letterContent.classList.add('scale-90');
+        }
+
+        openLetterBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            openModal();
+        });
+
+        closeLetterBtn.addEventListener('click', closeModal);
+        letterModal.addEventListener('click', (e) => {
+            if (e.target === letterModal) closeModal();
+        });
+
+        let isPlaying = false;
+        let synth, synthLoop;
+
+        async function toggleMusic() {
+            if (!isPlaying) {
+                await Tone.start();
+                
+                synth = new Tone.PolySynth(Tone.Synth, {
+                    oscillator: { type: 'sine' },
+                    envelope: {
+                        attack: 1.2,
+                        decay: 2.2,
+                        sustain: 0.6,
+                        release: 3
+                    }
+                }).toDestination();
+                
+                synth.volume.value = -16;
+
+                // Dreamy melodic chord progression in G Major
+                const chords = [
+                    ["G3", "B3", "D4", "F#4"],
+                    ["E3", "G3", "B3", "D4"],
+                    ["C3", "E3", "G3", "B3"],
+                    ["D3", "F#3", "A3", "C4"]
+                ];
+
+                let chordIdx = 0;
+                synthLoop = new Tone.Loop((time) => {
+                    synth.triggerAttackRelease(chords[chordIdx], "2n", time);
+                    chordIdx = (chordIdx + 1) % chords.length;
+                }, "2m").start(0);
+
+                Tone.Transport.bpm.value = 60;
+                Tone.Transport.start();
+
+                isPlaying = true;
+                musicIcon.className = 'fas fa-volume-high text-yellow-300';
+                musicText.textContent = 'Música: Activada';
+                musicBtn.classList.add('border-yellow-400');
+            } else {
+                Tone.Transport.stop();
+                if (synthLoop) synthLoop.dispose();
+                if (synth) synth.dispose();
+                isPlaying = false;
+                musicIcon.className = 'fas fa-music text-yellow-400';
+                musicText.textContent = 'Música: Desactivada';
+                musicBtn.classList.remove('border-yellow-400');
+            }
+        }
+
+        musicBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleMusic();
+        });
     </script>
 </body>
 </html>
